@@ -1,0 +1,24 @@
+Entités :
+
+-User 	(php bin/console make:user)
+	-Username
+	-Email
+	-Password
+	-photos
+	-groupe (ManyToMany)
+	
+
+-Groupe	(php bin/console make:groupe)
+	-Nom
+	-photo
+	-date
+	-users (ManytoMany)
+	-users_p (ManyToOne) (admin du groupe)
+	-messages (OneToMany)
+
+
+-message	(php bin/console make:message)
+	-content
+	-datetime
+	-state (envoye, recu etc) ou (0, 1, 2, 3)
+	-groupe (ManyToOne)
