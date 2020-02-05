@@ -6,7 +6,21 @@
 
 {% block body %}
 
-{{ form(signupForm) }}
+{{form_start(signupForm)}}
+
+
+{{form_widget(signupForm.username)}}
+
+{{form_widget(signupForm.password)}}
+
+{{form_widget(signupForm.email)}}
+
+{{form_widget(signupForm.photo)}}
+
+
+{{form_end(signupForm)}}
+
+
 
 {% endblock %}
 

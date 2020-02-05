@@ -33,6 +33,10 @@ class UserController extends AbstractController
     public function signup(Request $request)
     {
         $user = new User;
+        $user = $this->getUser();
+        if($user != null){
+            return $this->redirectToRoute('login');
+        }
         $form = $this->createForm(SignupType::class, $user);
 
         $form->handleRequest($request);

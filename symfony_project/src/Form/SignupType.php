@@ -18,7 +18,11 @@ class SignupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class)
+            ->add('username', TextType::class, [
+                'attr' => [
+                    'class' => "input_register"
+                ]
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'le mot de passe n\'est pas confirmer.',
