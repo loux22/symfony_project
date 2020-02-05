@@ -50,10 +50,11 @@ class User implements UserInterface
      */
     private $groupes;
 
-    /** 
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="User")
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="user")
      */
     private $messages;
+
 
     public function __construct()
     {
@@ -161,12 +162,12 @@ class User implements UserInterface
     /**
      * @return Collection|Groupe[]
      */
-    public function getGroupes(): Collection
+    public function getGroupes()
     {
         return $this->groupes;
     }
 
-    public function addGroupe(Groupe $groupe): self
+    public function addGroupe(Groupe $groupe)
     {
         if (!$this->groupes->contains($groupe)) {
             $this->groupes[] = $groupe;
@@ -174,10 +175,19 @@ class User implements UserInterface
 
         }
     }    
-    /**       
+
+    public function removeGroupe(Groupe $groupe)
+    {
+        if ($this->groupes->contains($groupe)) {
+            $this->groupes->removeElement($groupe);
+            $groupe->removeUser($this);
+        } 
+    }
+
+    /**
      * @return Collection|Message[]
      */
-    public function getMessages(): Collection
+    public function getMessages()
     {
         return $this->messages;
     }
@@ -192,13 +202,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeGroupe(Groupe $groupe): self
-    {
-        if ($this->groupes->contains($groupe)) {
-            $this->groupes->removeElement($groupe);
-            $groupe->removeUser($this);
-        } 
-    }           
     public function removeMessage(Message $message): self
     {
         if ($this->messages->contains($message)) {
@@ -210,5 +213,6 @@ class User implements UserInterface
         }
 
         return $this;
-    }
+    }           
+    
 }

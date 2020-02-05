@@ -43,14 +43,18 @@ class Groupe
      */
     private $users_p;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="groupe")
      */
     private $messages;
+
+   
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,21 +100,45 @@ class Groupe
     /**
      * @return Collection|user[]
      */
-    public function getUsers(): Collection
+    public function getUsers()
     {
         return $this->users;
     }
 
-    public function addUser(user $user): self
+    public function addUser(user $user)
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
         }
     }            
-     /**  
+     
+
+    public function removeUser(user $user)
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+        }
+    }            
+
+     
+
+
+    public function getUsersP(): ?user
+    {
+        return $this->users_p;
+    }
+
+    public function setUsersP(?user $users_p): self
+    {
+        $this->users_p = $users_p;
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Message[]
      */
-    public function getMessages(): Collection
+    public function getMessages()
     {
         return $this->messages;
     }
@@ -125,12 +153,6 @@ class Groupe
         return $this;
     }
 
-    public function removeUser(user $user): self
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-        }
-    }            
     public function removeMessage(Message $message): self
     {
         if ($this->messages->contains($message)) {
@@ -140,19 +162,6 @@ class Groupe
                 $message->setGroupe(null);
             }
         }
-
-        return $this;
-    }
-
-
-    public function getUsersP(): ?user
-    {
-        return $this->users_p;
-    }
-
-    public function setUsersP(?user $users_p): self
-    {
-        $this->users_p = $users_p;
 
         return $this;
     }
