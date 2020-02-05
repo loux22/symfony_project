@@ -17,6 +17,13 @@ class UserController extends AbstractController
         return $this->render('user/login.html.twig', ['error' => $error]);
     }
 
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout()
+    {
+    }
+
      /**
      * @Route("/signup", name="signup")
      */
