@@ -9,13 +9,22 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: username
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: lazy
+
+            provider: in_database
+            form_login:
+                login_path: login  
+                check_path: login
+
+            logout:
+                path: logout
+                target: home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
