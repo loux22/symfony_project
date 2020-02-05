@@ -11,7 +11,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * * @UniqueEntity(fields="email", message="Le mail existe déja")
+ * @UniqueEntity(fields="email", message="Le mail existe déja")
+ * @UniqueEntity(fields="username", message="Le username existe déja")
  */
 class User implements UserInterface
 {
