@@ -17,6 +17,7 @@ class AppFixtures extends Fixture
             $user = new User;
             $user->setUsername('user' . $i);
             $user->setPassword('123456');
+            $user->setPhoto('default.jpg');
             $user->setEmail('user' . $i . '@gmail.com');
             $manager->persist($user);
         }
