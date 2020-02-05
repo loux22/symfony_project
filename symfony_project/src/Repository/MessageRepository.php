@@ -19,6 +19,16 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
+    public function findAllMessageOnGroupe($groupe)
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.groupe = :groupe')
+            ->setParameter('groupe', $groupe)
+            ->orderBy('m.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */
