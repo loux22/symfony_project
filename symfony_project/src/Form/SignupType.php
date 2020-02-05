@@ -20,29 +20,53 @@ class SignupType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'attr' => [
-                    'class' => "input_register"
+                    'placeholder' => "Entrez votre nom d'utilisateur",
+                    'class' => "input100",
                 ]
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'le mot de passe n\'est pas confirmer.',
+                'invalid_message' => 'Le mot de passe n\'est pas confirmé.',
+
                 'first_options' => [
                     'label' => 'Password',
                     'attr' => [
-                        'placeholder' => "Password",
-
+                        'placeholder' => "Entrez votre mot de passe",
+                        'class' => "input100",
                     ]
                 ],
+
                 'second_options' => [
-                    'label' => 'Répeter password',
+                    'label' => 'Repeated',
                     'attr' => [
-                        'placeholder' => "Répeter Password",
+                        'placeholder' => "Répetez votre mot de passe",
+                        'class' => "input100",
                     ]
                 ]
             ])
-            ->add('email', EmailType::class)
-            ->add('photo',FileType::class,array('required'=> false,))
-            ->add('submit',SubmitType::class)
+
+            ->add('username', TextType::class, [
+                'attr' => [
+                    'placeholder' => "Entrez votre nom d'utilisateur",
+                    'class' => "input100",
+                ]
+            ])
+
+            ->add('email', EmailType::class,[
+                'attr' => [
+                    'placeholder' => "Entrez votre email",
+                    'class' => "input100",
+                ]
+            ])
+
+            ->add('photo',FileType::class,array('required'=> false))
+            
+            ->add('submit',SubmitType::class,[
+                'attr' => [
+                    'placeholder' => "Valider",
+                    'class' => "login100-form-btn",
+                ]
+            ])
         ;
     }
 
