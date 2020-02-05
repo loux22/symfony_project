@@ -16,4 +16,13 @@ class UserController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         return $this->render('user/login.html.twig', ['error' => $error]);
     }
+
+     /**
+     * @Route("/signup", name="signup")
+     */
+    public function signup(AuthenticationUtils $authenticationUtils)
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        return $this->render('user/signup.html.twig', ['error' => $error]);
+    }
 }
