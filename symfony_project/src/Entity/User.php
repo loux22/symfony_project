@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -42,6 +44,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $photo;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Groupe", mappedBy="users")
+     */
+    private $groupes;
+
+    public function __construct()
+    {
+        $this->groupes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -136,6 +148,34 @@ class User implements UserInterface
     public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groupe[]
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Groupe $groupe): self
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes[] = $groupe;
+            $groupe->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): self
+    {
+        if ($this->groupes->contains($groupe)) {
+            $this->groupes->removeElement($groupe);
+            $groupe->removeUser($this);
+        }
 
         return $this;
     }
