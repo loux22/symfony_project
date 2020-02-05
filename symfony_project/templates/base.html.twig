@@ -19,8 +19,12 @@
 
 		{% for message in app.flashes('errors') %}
 			<div class="alert alert-danger">{{ message}}</div></body> 
-		{% endfor %} {# end message erreur et success #}
-    {% block body %}{% endblock %}
+        {% endfor %} {# end message erreur et success #}
+        
+    <div class="limiter">
+        {% include "shared/navbar.html.twig" %} 
+        {% block body %}{% endblock %}
+    </div>
     {% block javascripts %}{% endblock %}
 </body>
 

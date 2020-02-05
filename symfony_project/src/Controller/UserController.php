@@ -13,7 +13,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="login")
+     * @Route("/", name="home")
+     */
+    public function home()
+    {
+        return $this->render('home.html.twig');
+    }
+
+    /**
+     * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
