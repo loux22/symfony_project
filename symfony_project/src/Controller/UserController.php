@@ -47,6 +47,10 @@ class UserController extends AbstractController
 
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
+
+            if($user -> getPhoto() === null){
+                $user -> setPhoto('default.jpg');
+            }
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user); //ENREGISTRE L'OBJET DANS LE SYSTEME 
 
