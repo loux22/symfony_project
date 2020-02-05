@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
 
         for ($i = 1; $i <= 10; $i++) {
             $message = new Message;
-            $message->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dictum fermentum sodales. Etiam mattis turpis eu metus condimentum, ut vestibulum sem cursus. Nunc fringilla turpis risus, vel iaculis odio pretium vitae. Quisque eget dictum mauris. Suspendisse vestibulum leo aliquam sodales cursus. Etiam a ullamcorper orci, eu rhoncus magna. Quisque a auctor ante. Duis euismod ultrices ultricies. Nulla lobortis diam in faucibus facilisis. Proin at dictum nunc. In vitae ultricies ligula.');
+            $message->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent dictum fermentum sodales.');
             $message->setState(0);
             $message->setDate(new \DateTime('now'));
             $manager->persist($message);
