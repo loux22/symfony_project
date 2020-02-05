@@ -26,7 +26,7 @@ class UserController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils)
     {
         $userlog = $this->getUser();
-        if($userlog == null){
+        if($userlog != null){
             return $this->redirectToRoute('signup');
         }
         $error = $authenticationUtils->getLastAuthenticationError();
