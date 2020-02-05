@@ -28,10 +28,13 @@
 {% endblock %}
 
 {% block body %}
+{% if error %}
+    <div>{{ error.messageKey | trans(error.messageData, 'security') }}</div>
+    {% endif %}
 <div class="limiter">
 	<div class="container-login100" style="background-image: url('{{ asset('images/bg-01.jpg') }}');">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-			<form class="login100-form validate-form">
+			<form class="login100-form validate-form" action="{{ path('login') }}" method="post">
 				<span class="login100-form-title p-b-49">
 					Login
 				</span>
@@ -46,18 +49,6 @@
 					<span class="label-input100">Mot de passe</span>
 					<input class="input100" placeholder="mot de passe" required name="_password" type="password">
 					<span class="focus-input100" data-symbol="&#xf190;"></span>
-				</div>
-
-				<div class="wrap-input100 validate-input">
-					<span class="label-input100">Image</span>
-					<input class="input100" type="file" name="_image" placeholder="Enter an image">
-					<span class="focus-input100" data-symbol="&#xf190;"></span>
-				</div>
-
-				<div class="text-right p-t-8 p-b-31">
-					<a href="#">
-						Mot de passe oublié ?
-					</a>
 				</div>
 
 				<div class="container-login100-form-btn">
