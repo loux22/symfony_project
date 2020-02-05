@@ -34,12 +34,12 @@ class Groupe
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\user", inversedBy="groupes")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="groupes")
      */
     private $users;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="groupes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="groupes")
      */
     private $users_p;
 
@@ -48,7 +48,7 @@ class Groupe
      */
     private $messages;
 
-   
+
 
     public function __construct()
     {
@@ -110,17 +110,17 @@ class Groupe
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
         }
-    }            
-     
+    }
+
 
     public function removeUser(user $user)
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
         }
-    }            
+    }
 
-     
+
 
 
     public function getUsersP(): ?user

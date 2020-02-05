@@ -32,12 +32,12 @@ class Message
     private $state;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\groupe", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Groupe", inversedBy="messages")
      */
     private $groupe;
 
