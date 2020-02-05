@@ -6,9 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Error;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * * @UniqueEntity(fields="email", message="Le mail existe déja")
  */
 class User implements UserInterface
 {
@@ -21,6 +24,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Error\Length(min=3, max=50, minMessage="ton username '{{ value }}' est trop court", 
+     * maxMessage="Ton username '{{ value }}' est trop long")
      */
     private $username;
 
@@ -32,11 +37,14 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Error\length(min="8", minMessage="ton mot de passe doit contenir au moins 8 caractere")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  Error\Email(
+     *     message = "Ton Email '{{ value }}' n'est pas valide.")
      */
     private $email;
 
