@@ -59,8 +59,10 @@ class SignupType extends AbstractType
                 ]
             ])
 
-            ->add('photo',FileType::class,array('required'=> false))
-            
+            ->add('file', FileType::class,[
+                'required' => false,
+                ])
+                   
             ->add('submit',SubmitType::class,[
                 'attr' => [
                     'placeholder' => "Valider",
