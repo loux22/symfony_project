@@ -2,35 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Groupe;
+use App\Entity\Message;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateGroupeType extends AbstractType
+class FormMessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, [
+            ->add('content', TextareaType::class, [
                 'attr' => [
-                    'placeholder' => "nom",
+                    'placeholder' => "Entrez votre message ...",
                 ]
             ])
-            ->add('file', FileType::class,[
-                'required' => false,
-                ])   
-            ->add('creer', SubmitType::class)    
-        ;
+            ->add('Envoyer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Groupe::class,
+            'data_class' => Message::class,
         ]);
     }
 }
