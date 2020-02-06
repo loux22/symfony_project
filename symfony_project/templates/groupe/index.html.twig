@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GroupeController!{% endblock %}
+{% block title %}Acceuil groupes{% endblock %}
 
 {% block body %}
 <style>
@@ -8,13 +8,22 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/symfony_project/symfony_project/src/Controller/GroupeController.php'|file_link(0) }}">src/Controller/GroupeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/symfony_project/symfony_project/templates/groupe/index.html.twig'|file_link(0) }}">templates/groupe/index.html.twig</a></code></li>
-    </ul>
+<div class="example-wrapper">
+    {{ dump(groupes) }}
+    {% for groupe in groupes %}
+        <div>
+            {{ groupe.nom }}
+        </div>
+        {{groupe.date.date}}
+    {% endfor %}
+    {{ dump(message) }}
+    {% for message in messages %}
+        <div>
+            {{ message.date.date }}
+        </div>
+    {% endfor %}
+
+
 </div>
 {% endblock %}
