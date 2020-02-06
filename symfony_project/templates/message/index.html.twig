@@ -18,6 +18,7 @@
 </style>
 
 <div class="example-wrapper">
+    {{ dump(app.user) }}
 
     <h2>
         <img src="{{ asset('images/upload/' ~ groupe.photo ) }}" alt="">
@@ -43,5 +44,9 @@
     </p>
 
     {% endfor %}
+
+    <div>
+        {{ form(messageForm) }}
+    </div>
 </div>
 {% endblock %}
