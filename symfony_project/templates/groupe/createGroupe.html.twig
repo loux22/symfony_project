@@ -38,11 +38,12 @@
     $(document).ready(function(){
         $('#search-user-js').keyup(function(){
             
-            const user = $(this).val()
+            const user = $(this).val();
+            let url = "{{ path('search_user') }}";
             if(user != ""){
                 $.ajax({
                     type: 'GET',
-                    url: '',
+                    url: url,
                     data: 'user=' + encodeURIComponent(user),
                     success: function(data){
                         if(data!= ""){
@@ -54,7 +55,7 @@
                     } 
                    
                 })
-                
+                console.log(url)
             }
         })
     })

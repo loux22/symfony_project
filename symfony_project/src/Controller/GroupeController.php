@@ -56,6 +56,14 @@ class GroupeController extends AbstractController
             ]);
     }
 
+    /**
+     * @Route("/fghghfh", name="search_user")
+     */
+    public function search_user()
+    {
+        return $this->render('user/createGroupe.html.twig', []);
+    }
+
     // /**
     //  * @Route("/groupe/(id)", name="groupe")
     //  */

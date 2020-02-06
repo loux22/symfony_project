@@ -84,4 +84,7 @@ class UserController extends AbstractController
             'signupForm' => $form -> createView(),
         ]);
     }
+
+
+    
 }
