@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Groupe;
+use App\Form\CreateGroupeType;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GroupeController extends AbstractController
 {
@@ -20,6 +22,11 @@ class GroupeController extends AbstractController
      */
     public function createGroupe()
     {
-        return $this->render('groupe/createGroupe.html.twig', []);
+        $groupe = new Groupe;
+        $form = $this->createForm(CreateGroupeType::class, $groupe);
+
+        return $this->render('groupe/createGroupe.html.twig', [
+            'createGroupeForm' => $form -> createView()
+            ]);
     }
 }
