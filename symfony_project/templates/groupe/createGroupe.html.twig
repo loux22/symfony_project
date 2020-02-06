@@ -20,12 +20,22 @@
 <div id="result-search-js"></div>
 </div>
 
+{% for user in users %}
+    <p>{{user.username}}</p>
+    <input type="checkbox" name="userId[]" value="{{user.id}}">
+{% endfor %}
+
 {{form_widget(createGroupeForm.creer)}}
 
 
 {{form_end(createGroupeForm)}}
 </form>
+
+
+
 {% endblock %}
+
+
 
 {% block javascripts %}
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

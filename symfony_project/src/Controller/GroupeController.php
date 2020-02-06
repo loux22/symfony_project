@@ -29,8 +29,12 @@ class GroupeController extends AbstractController
         if($userLog == null){
             return $this->redirectToRoute('login');
         }
-        $u = $userLog->getId();
         $groupe = new Groupe;
+
+
+        $repository = $this-> getDoctrine() -> getRepository(User::class);
+        $users = $repository -> findAll();
+        
         $form = $this->createForm(CreateGroupeType::class, $groupe);
 
         $form->handleRequest($request);
@@ -43,8 +47,18 @@ class GroupeController extends AbstractController
             $groupe->setDate(new \DateTime());
             $groupe->setUsersP($userLog);
             $groupe -> fileUpload();
+
+
+            $userId = $request->request->all();
+            $userId = $userId['userId'];
+            foreach ($userId as $key => $value) {
+                $user = $manager -> find(User::class, $value);
+                $groupe -> addUser($user);
+            }  
             
             $manager->flush($groupe); 
+
+             
 
             $this->addFlash('success', 'La création de votre groupe est une réussite ');
             // return $this ->redirectToRoute('home');
@@ -52,7 +66,7 @@ class GroupeController extends AbstractController
 
         return $this->render('groupe/createGroupe.html.twig', [
             'createGroupeForm' => $form -> createView(),
-            'u' => $u
+            'users' => $users,
             ]);
     }
 
