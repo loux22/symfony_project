@@ -26,104 +26,65 @@
                 <div class="bg-gray px-4 py-2 bg-light d-flex justify-content-between">
                     <a type="button" class="btn btn-danger" href="{{ path('seeGroups') }}"><i
                             class="fas fa-arrow-left"></i></a>
-                    <p class="h5 mb-0 py-1">Nom du groupe</p>
+                    <p class="h5 mb-0 py-1">{{ groupe.nom }}</p>
 
                 </div>
 
-
                 <div class="px-4 py-5 chat-box bg-white" style="max-height: 65vh; overflow-y: scroll;">
-                    <!-- Sender Message-->
-                    <div class="media w-50 mb-3"><img
-                            src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user"
-                            width="50" class="rounded-circle">
-                        <div class="media-body ml-3">
-                            <div class="bg-light rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-muted">Test which is a new approach all solutions</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
+                    {% for message in messages %}
+
+                    {% if app.user == message.user %}
 
                     <!-- Reciever Message-->
                     <!-- la classe ml-auto place le message de la personne qui envoie à droite  -->
                     <div class="media w-50 ml-auto mb-3">
                         <div class="media-body">
                             <div class="bg-primary rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-white">Test which is a new approach to have all solutions
-                                </p>
+                                <p class="text-small mb-0 text-white">{{ message.content }}</p>
                             </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
+                            <p class="small text-muted">{{ message.date.date }}</p>
                         </div>
                     </div>
 
+                    {% else %}
                     <!-- Sender Message-->
-                    <div class="media w-50 mb-3"><img
-                            src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user"
-                            width="50" class="rounded-circle">
+                    <div class="media w-50 mb-3"><img src="{{ asset("images/upload/" ~ message.user.photo) }}"
+                            alt="user" width="50" class="rounded-circle">
                         <div class="media-body ml-3">
                             <div class="bg-light rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-muted">Test, which is a new approach to have</p>
+                                <p class="text-small mb-0 text-muted">{{ message.content }}</p>
                             </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
+                            <p class="small text-muted">{{ message.date.date }}</p>
                         </div>
                     </div>
+                    {% endif %}
 
-                    <!-- Reciever Message-->
-                    <div class="media w-50 ml-auto mb-3">
-                        <div class="media-body">
-                            <div class="bg-primary rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
+                    {% endfor %}
 
-                    <!-- Sender Message-->
-                    <div class="media w-50 mb-3"><img
-                            src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user"
-                            width="50" class="rounded-circle">
-                        <div class="media-body ml-3">
-                            <div class="bg-light rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
+                    <!-- Typing area -->
+                    {{form_start(messageForm)}}
 
-                    <!-- Reciever Message-->
-                    <div class="media w-50 ml-auto mb-3">
-                        <div class="media-body">
-                            <div class="bg-primary rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
+                    <!-- <form action="#" class="bg-light"> -->
+                    <div class="input-group">
+                        {{ form_widget(messageForm.content) }}
+                        <!-- <input type="text" placeholder="Type a message" aria-describedby="button-addon2"
+                        class="form-control rounded-0 border-0 py-4 bg-light"> -->
+                        <div class="input-group-append">
+                            <!-- <button id="button-addon2" type="submit" class="btn btn-link"> <i
+                                class="fa fa-paper-plane"></i></button> -->
+                            {{ form_widget(messageForm.envoyer) }}
                         </div>
                     </div>
+                    <!-- </form> -->
+                    {{form_end(messageForm)}}
+
                 </div>
             </div>
 
-            <!-- Typing area -->
-            <form action="#" class="bg-light">
-                <div class="input-group">
-                    {{form_start(messageForm)}}
-                    {{ form_widget(messageForm.content) }}
-                    <!-- <input type="text" placeholder="Type a message" aria-describedby="button-addon2"
-                        class="form-control rounded-0 border-0 py-4 bg-light"> -->
-                    <div class="input-group-append">
-                        <!-- <button id="button-addon2" type="submit" class="btn btn-link"> <i
-                                class="fa fa-paper-plane"></i></button> -->
-                                {{ form_widget(messageForm.envoyer) }}
-                    </div>
-                    {{form_end(messageForm)}}
-                </div>
-            </form>
         </div>
-    </div>
 
-</div>
+        <div>
 
-<div>
-    
-</div>
+        </div>
 
-{% endblock %}
+        {% endblock %}
