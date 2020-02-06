@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Length;
 
 class GroupeController extends AbstractController
 {
@@ -19,22 +20,22 @@ class GroupeController extends AbstractController
     {
         return $this->render('groupe/groups.html.twig', []);
     }
-    
+
     /**
      * @Route("/createGroupe", name="createGroupe")
      */
     public function createGroupe(Request $request)
     {
         $userLog = $this->getUser();
-        if($userLog == null){
+        if ($userLog == null) {
             return $this->redirectToRoute('login');
         }
         $groupe = new Groupe;
 
 
-        $repository = $this-> getDoctrine() -> getRepository(User::class);
-        $users = $repository -> findAll();
-        
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findAll();
+
         $form = $this->createForm(CreateGroupeType::class, $groupe);
 
         $form->handleRequest($request);
@@ -42,32 +43,39 @@ class GroupeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $manager = $this->getDoctrine()->getManager();
-            $manager->persist($groupe);
+
 
             $groupe->setDate(new \DateTime());
             $groupe->setUsersP($userLog);
-            $groupe -> fileUpload();
+            $groupe->fileUpload();
 
 
             $userId = $request->request->all();
-            $userId = $userId['userId'];
-            foreach ($userId as $key => $value) {
-                $user = $manager -> find(User::class, $value);
-                $groupe -> addUser($user);
-            }  
+
+            if (isset($userId['userId'])) {
+                $userId = $userId['userId'];
+                foreach ($userId as $key => $value) {
+                    $user = $manager->find(User::class, $value);
+                    $groupe->addUser($user);
+                }
+                $manager->persist($groupe);
+                $manager->flush($groupe);
+                $this->addFlash('success', 'La création de votre groupe est une réussite ');
+            } else {
+                $this->addFlash('errors', 'tu dois inviter au moins 1 personne dans ton groupe');
+            }
+
+
+
+
             
-            $manager->flush($groupe); 
-
-             
-
-            $this->addFlash('success', 'La création de votre groupe est une réussite ');
             // return $this ->redirectToRoute('home');
         }
 
         return $this->render('groupe/createGroupe.html.twig', [
-            'createGroupeForm' => $form -> createView(),
+            'createGroupeForm' => $form->createView(),
             'users' => $users,
-            ]);
+        ]);
     }
 
     /**
@@ -95,11 +103,12 @@ class GroupeController extends AbstractController
     /**
      * @Route("/groupe/{id}", name="groupe")
      */
-    public function showAllGroupOfUser($id){
-        $manager = $this -> getDoctrine() -> getManager();
-        $user = $manager -> find(User::class, $id);
+    public function showAllGroupOfUser($id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $user = $manager->find(User::class, $id);
         $groupes = $user->getGroupes();
-        
+
         $manager = $this->getDoctrine()->getManager();
         $message = $manager->find(Message::class, $id);
 
