@@ -63,7 +63,7 @@ class SignupType extends AbstractType
                 'required' => false,
                 ])
                    
-            ->add('submit',SubmitType::class,[
+            ->add('inscription',SubmitType::class,[
                 'attr' => [
                     'placeholder' => "Valider",
                     'class' => "login100-form-btn",
