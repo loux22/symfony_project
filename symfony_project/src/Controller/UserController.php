@@ -25,6 +25,10 @@ class UserController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
+        $userlog = $this->getUser();
+        if($userlog != null){
+            return $this->redirectToRoute('signup');
+        }
         $error = $authenticationUtils->getLastAuthenticationError();
         return $this->render('user/login.html.twig', ['error' => $error]);
     }
@@ -42,34 +46,35 @@ class UserController extends AbstractController
     public function signup(Request $request,UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User;
+
         $userlog = $this->getUser();
         if($userlog != null){
             return $this->redirectToRoute('login');
         }
+
         $form = $this->createForm(SignupType::class, $user);
 
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
-            if($user -> getPhoto() === null){
-                $user -> setPhoto('default.jpg');
-            }
             $manager = $this->getDoctrine()->getManager();
-            $manager->persist($user); //ENREGISTRE L'OBJET DANS LE SYSTEME 
+            $manager->persist($user); 
 
-            // $post-> fileUpload();
+            $user -> fileUpload();
+            
 
-            $manager->flush($user); //EXECUTE LA OU LES REQUETES ENREGISTREE
+            $manager->flush($user); 
 
             $this->addFlash('success', 'La création de votre compte est une réussite ' . $user->getUsername());
-            // return $this ->redirectToRoute('admin_post');
+            // return $this ->redirectToRoute('home');
         }
 
-        return $this->render('user/signup.html.twig', ['signupForm' => $form -> createView(),'user' => $user]);
+        return $this->render('user/signup.html.twig', [
+            'signupForm' => $form -> createView(),
+        ]);
     }
 }

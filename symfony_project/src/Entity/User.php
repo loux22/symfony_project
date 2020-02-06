@@ -2,16 +2,18 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Error;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Le mail existe déja")
+ * @UniqueEntity(fields="username", message="Le username existe déja")
  */
 class User implements UserInterface
 {
@@ -51,7 +53,9 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $photo;
+    private $photo = 'default.jpg';
+
+    private $file;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Groupe", mappedBy="users")
@@ -221,6 +225,45 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file)
+    {
+        $this -> file = $file;
+        return $this;
+    }
+
+
+    public function dirFile()
+    {
+        return __DIR__ . '/../../public/images/upload/';
+    }
+
+    public function fileUpload()
+    {
+        if($this -> file  != null){
+            $newName = $this -> renameFile($this -> file -> getClientOriginalName());
+            $this -> photo = $newName;
+            $this -> file -> move($this->dirFile(),$newName);
+        }
+    }
+
+    public function renameFile($nom)
+    {
+        return 'photo_' . time() . '_' . rand(1,99999) . '_' . $nom;
+    }
+
+    public function removeFile()
+    {
+        if(file_exists($this->dirFile() . $this-> photo) && $this-> photo != 'default.jpg'){
+            unlink($this->dirFile() . $this-> photo);
+        }
+        
     }           
     
 }

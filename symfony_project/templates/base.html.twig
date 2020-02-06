@@ -5,14 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>Symfony - {% block title %}{% endblock %}</title>
 
     {% block stylesheets %}{% endblock %}
 </head>
 
 <body>
 
-{# message erreur et success #}
+
+        
+    <div class="limiter">
+        {% include "shared/navbar.html.twig" %} 
+        {# message erreur et success #}
 	{% for message in app.flashes('success') %}
 			<div class="alert alert-success">{{ message }}</div>
 		{% endfor %}
@@ -20,9 +24,6 @@
 		{% for message in app.flashes('errors') %}
 			<div class="alert alert-danger">{{ message}}</div></body> 
         {% endfor %} {# end message erreur et success #}
-        
-    <div class="limiter">
-        {% include "shared/navbar.html.twig" %} 
         {% block body %}{% endblock %}
     </div>
     {% block javascripts %}{% endblock %}

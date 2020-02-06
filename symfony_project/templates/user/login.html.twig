@@ -33,7 +33,6 @@
 {% if error %}
 <div>{{ error.messageKey | trans(error.messageData, 'security') }}</div>
 {% endif %}
-
 <div class="container-login100" style="background-image: url('{{ asset('images/bg-01.jpg') }}');">
 	<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 		<form class="login100-form validate-form" action="{{ path('login') }}" method="post">
@@ -42,7 +41,7 @@
 			</span>
 
 			<div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-				<span class="label-input100">Pseudo</span>
+				<span class="label-input100">Mail</span>
 				<input class="input100" placeholder="Mail" required name="_username" type="text">
 				<span class="focus-input100" data-symbol="&#xf206;"></span>
 			</div>
@@ -63,7 +62,7 @@
 			</div>
 
 			<div class="flex-col-c p-t-55">
-				<a href="#" class="txt2">
+				<a href="{{path('signup')}}" class="txt2">
 					Sign Up
 				</a>
 			</div>
