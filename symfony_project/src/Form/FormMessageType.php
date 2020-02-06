@@ -17,9 +17,14 @@ class FormMessageType extends AbstractType
             ->add('content', TextareaType::class, [
                 'attr' => [
                     'placeholder' => "Entrez votre message ...",
+                    'class'=>"form-control rounded-0 border-0 py-2 bg-light",
                 ]
             ])
-            ->add('Envoyer', SubmitType::class);
+            ->add('envoyer', SubmitType::class,[
+                'attr' => [
+                    'class'=>"btn btn-primary",
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
