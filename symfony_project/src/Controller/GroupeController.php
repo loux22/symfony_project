@@ -8,12 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class GroupeController extends AbstractController
 {
     /**
-     * @Route("/groupe", name="groupe")
+     * @Route("/createGroupe", name="createGroupe")
      */
-    public function index()
+    public function createGroupe()
     {
-        return $this->render('groupe/index.html.twig', [
-            'controller_name' => 'GroupeController',
-        ]);
+        return $this->render('groupe/createGroupe.html.twig', []);
     }
 }

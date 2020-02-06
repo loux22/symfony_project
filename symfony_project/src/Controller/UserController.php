@@ -70,7 +70,7 @@ class UserController extends AbstractController
             $manager->flush($user); 
 
             $this->addFlash('success', 'La création de votre compte est une réussite ' . $user->getUsername());
-            // return $this ->redirectToRoute('home');
+            return $this ->redirectToRoute('home');
         }
 
         return $this->render('user/signup.html.twig', [
