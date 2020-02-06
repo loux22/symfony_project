@@ -15,9 +15,48 @@
 {{form_errors(createGroupeForm.file)}}
 {{form_widget(createGroupeForm.file)}}
 
+<input type="text" id="search-user-js" name="" placeholder="Rechercher un ou plusieurs utilisateur">
+<div>
+<div id="result-search-js"></div>
+</div>
+
 {{form_widget(createGroupeForm.creer)}}
 
 
 {{form_end(createGroupeForm)}}
 </form>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+
+<script>
+    $(document).ready(function(){
+        $('#search-user-js').keyup(function(){
+            
+            const user = $(this).val()
+            if(user != ""){
+                $.ajax({
+                    type: 'GET',
+                    url: '',
+                    data: 'user=' + encodeURIComponent(user),
+                    success: function(data){
+                        if(data!= ""){
+                            $('#result-search-js').append(data)
+                        }else{
+                            document.getElementById('result-search-js').innerHTML = "<div style='font-size: 20px'>Aucun Utilisateur </div>"
+                        }
+                        
+                    } 
+                   
+                })
+                
+            }
+        })
+    })
+</script>
 {% endblock %}

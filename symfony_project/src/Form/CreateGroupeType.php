@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Groupe;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,7 +23,7 @@ class CreateGroupeType extends AbstractType
             ])
             ->add('file', FileType::class,[
                 'required' => false,
-                ])   
+                ])    
             ->add('creer', SubmitType::class)    
         ;
     }
