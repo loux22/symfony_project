@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creer un groupe{% endblock %}
+
+{% block body %}
+
+
+{{form_start(createGroupeForm)}}
+
+
+{{form_errors(createGroupeForm.nom)}}
+{{form_widget(createGroupeForm.nom)}}
+
+{{form_errors(createGroupeForm.file)}}
+{{form_widget(createGroupeForm.file)}}
+
+{{form_widget(createGroupeForm.creer)}}
+
+
+{{form_end(createGroupeForm)}}
+{% endblock %}
