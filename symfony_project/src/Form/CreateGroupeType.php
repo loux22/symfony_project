@@ -15,10 +15,14 @@ class CreateGroupeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
+            ->add('nom', TextType::class, [
+                'attr' => [
+                    'placeholder' => "nom",
+                ]
+            ])
             ->add('file', FileType::class,[
                 'required' => false,
-                ])
+                ])   
             ->add('creer', SubmitType::class)    
         ;
     }

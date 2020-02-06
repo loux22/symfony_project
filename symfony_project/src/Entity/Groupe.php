@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Error;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -21,13 +22,14 @@ class Groupe
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Error\Length(min=3, minMessage="ton username '{{ value }}' est trop court")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $photo;
+    private $photo = 'default.jpg';
 
     private $file;
 
@@ -178,5 +180,32 @@ class Groupe
     {
         $this -> file = $file;
         return $this;
+    }
+
+    public function dirFile()
+    {
+        return __DIR__ . '/../../public/images/groupe/';
+    }
+
+    public function fileUpload()
+    {
+        if($this -> file  != null){
+            $newName = $this -> renameFile($this -> file -> getClientOriginalName());
+            $this -> photo = $newName;
+            $this -> file -> move($this->dirFile(),$newName);
+        }
+    }
+
+    public function renameFile($nom)
+    {
+        return 'photo_' . time() . '_' . rand(1,99999) . '_' . $nom;
+    }
+
+    public function removeFile()
+    {
+        if(file_exists($this->dirFile() . $this-> photo) && $this-> photo != 'default.jpg'){
+            unlink($this->dirFile() . $this-> photo);
+        }
+        
     }
 }
