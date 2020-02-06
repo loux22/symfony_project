@@ -11,6 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 class GroupeController extends AbstractController
 {
     /**
+     * @Route("/groups", name="seeGroups")
+     */
+    public function seeGroups()
+    {
+        return $this->render('groupe/groups.html.twig', []);
+    }
+    
+    /**
      * @Route("/createGroupe", name="createGroupe")
      */
     public function createGroupe(Request $request)

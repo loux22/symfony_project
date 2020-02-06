@@ -1,0 +1,162 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block stylesheets %}
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!--===============================================================================================-->
+<link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container-login100" style="background-image: url('{{ asset('images/bg-01.jpg') }}');">
+    <!-- <div class="container py-5 px-4"> -->
+    <div class="row rounded-lg overflow-hidden shadow d-flex justify-content-center">
+        <!-- Users box-->
+        <div class="px-0" style="max-width: 500px;">
+            <div class="bg-white">
+
+                <div class="bg-gray px-4 py-2 bg-light d-flex justify-content-between">
+                    <p class="h5 mb-0 py-1">Mes groupes</p>
+                    <a type="button" class="btn btn-info" href="{{ path('createGroupe') }}">Créer un groupe</a>
+                </div>
+
+                <div class="messages-box">
+                    <div class="list-group rounded-0">
+
+                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                            <div class="media"><img
+                                    src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                    alt="user" width="50" class="rounded-circle">
+                                <div class="media-body ml-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14
+                                            Dec</small>
+                                    </div>
+                                    <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet,
+                                        consectetur. incididunt ut labore.</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                            <div class="media"><img
+                                    src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                    alt="user" width="50" class="rounded-circle">
+                                <div class="media-body ml-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9
+                                            Nov</small>
+                                    </div>
+                                    <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed
+                                        do eiusmod tempor incididunt ut labore.</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                            <div class="media"><img
+                                    src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                    alt="user" width="50" class="rounded-circle">
+                                <div class="media-body ml-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18
+                                            Oct</small>
+                                    </div>
+                                    <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet,
+                                        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                            <div class="media"><img
+                                    src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                    alt="user" width="50" class="rounded-circle">
+                                <div class="media-body ml-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17
+                                            Oct</small>
+                                    </div>
+                                    <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed
+                                        do eiusmod tempor incididunt ut labore.</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                            <div class="media"><img
+                                    src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                    alt="user" width="50" class="rounded-circle">
+                                <div class="media-body ml-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2
+                                            Sep</small>
+                                    </div>
+                                    <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco
+                                        laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                            <div class="media"><img
+                                    src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                    alt="user" width="50" class="rounded-circle">
+                                <div class="media-body ml-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30
+                                            Aug</small>
+                                    </div>
+                                    <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet,
+                                        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                            <div class="media"><img
+                                    src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+                                    alt="user" width="50" class="rounded-circle">
+                                <div class="media-body ml-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21
+                                            Aug</small>
+                                    </div>
+                                    <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet,
+                                        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- </div> -->
+{% endblock %}
+
+{% block javascripts %}
+<!--===============================================================================================-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+{% endblock %}
