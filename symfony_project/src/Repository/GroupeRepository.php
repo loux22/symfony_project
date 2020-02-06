@@ -19,6 +19,17 @@ class GroupeRepository extends ServiceEntityRepository
         parent::__construct($registry, Groupe::class);
     }
 
+    public function findAllGroupOfUser($user)
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('g.date', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Groupe[] Returns an array of Groupe objects
     //  */

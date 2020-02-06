@@ -13,11 +13,10 @@
 </head>
 
 <body>
-
-
-
     <div class="limiter">
+        
         {% include "shared/navbar.html.twig" %}
+
         {# message erreur et success #}
         {% for message in app.flashes('success') %}
         <div class="alert alert-success">{{ message }}</div>
