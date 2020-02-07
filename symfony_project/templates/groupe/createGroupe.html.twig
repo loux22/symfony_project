@@ -1,36 +1,101 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Creer un groupe{% endblock %}
+{% block stylesheets %}
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}" />
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+<!--===============================================================================================-->
+<style>
+    .form-control:focus {
+        box-shadow: none;
+    }
+
+    .form-group {
+        border-bottom: 1px solid rgb(196, 196, 196);
+    }
+
+    .form-control-underlined {
+        border-width: 0;
+        border-bottom-width: 1px;
+        border-radius: 0;
+        padding-left: 0;
+    }
+
+    .form-control::placeholder {
+        font-size: 0.95rem;
+        color: #aaa;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-<form action="" method="post" enctype="multipart/form-data">
+<div class="container-login100" style="background-image: url('{{ asset('images/bg-01.jpg') }}');">
+    <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <form action="" method="post" enctype="multipart/form-data">
+            <span class="login100-form-title p-b-49">
+                Créer un groupe
+            </span>
 
-{{form_start(createGroupeForm)}}
+            {{form_start(createGroupeForm)}}
 
 
-{{form_errors(createGroupeForm.nom)}}
-{{form_widget(createGroupeForm.nom)}}
+            <div class="form-group mb-4">
+                {{form_errors(createGroupeForm.nom)}}
+                {{form_widget(createGroupeForm.nom)}}
+            </div>
 
-{{form_errors(createGroupeForm.file)}}
-{{form_widget(createGroupeForm.file)}}
 
-<input type="text" id="search-user-js" name="" placeholder="Rechercher un ou plusieurs utilisateur">
-<div>
-<div id="result-search-js"></div>
+            {{form_errors(createGroupeForm.file)}}
+            {{form_widget(createGroupeForm.file)}}
+
+
+            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                <div class="input-group">
+                    <input type="text" id="search-user-js" name="" class="form-control border-0 bg-light"
+                        placeholder="Rechercher des utilisateurs">
+                    <div>
+                        <div id="result-search-js"></div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="container">
+                {% for user in users %}
+                <label for="-{{user.id}}" class="w-100" style="cursor:pointer;">
+                <div class="d-flex mb-3 border-bottom align-items-center w-100">
+                    <div class="image">
+                        <img height="50px" width="50px" src="{{asset('images/upload/' ~ user.photo)}}" alt="">
+                    </div>
+                    <div class="informations ml-2 d-flex justify-content-between w-100">
+                        <h5>{{user.username}}</h5>
+                        <input type="checkbox" id="-{{user.id}}" name="userId[]" value="{{user.id}}">
+                    </div>
+                    
+                </div>
+            </label>
+                {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-center">
+                {{form_widget(createGroupeForm.creer)}}
+            </div>
+
+
+
+            {{form_end(createGroupeForm)}}
+        </form>
+    </div>
 </div>
-
-{% for user in users %}
-    <img height="50px" width="50px" src="{{asset('images/upload/' ~ user.photo)}}" alt="">
-    <p>{{user.username}}</p>
-    <input type="checkbox" name="userId[]" value="{{user.id}}">
-{% endfor %}
-
-{{form_widget(createGroupeForm.creer)}}
-
-
-{{form_end(createGroupeForm)}}
-</form>
-
 
 
 {% endblock %}
@@ -45,25 +110,25 @@
 
 
 <script>
-    $(document).ready(function(){
-        $('#search-user-js').keyup(function(){
-            
+    $(document).ready(function () {
+        $('#search-user-js').keyup(function () {
+
             const user = $(this).val();
             let url = "{{ path('search_user') }}";
-            if(user != ""){
+            if (user != "") {
                 $.ajax({
                     type: 'GET',
                     url: url,
                     data: 'user=' + encodeURIComponent(user),
-                    success: function(data){
-                        if(data!= ""){
+                    success: function (data) {
+                        if (data != "") {
                             $('#result-search-js').append(data)
-                        }else{
+                        } else {
                             document.getElementById('result-search-js').innerHTML = "<div style='font-size: 20px'>Aucun Utilisateur </div>"
                         }
-                        
-                    } 
-                   
+
+                    }
+
                 })
                 console.log(url)
             }

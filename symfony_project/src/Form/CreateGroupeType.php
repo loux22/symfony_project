@@ -19,13 +19,18 @@ class CreateGroupeType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'attr' => [
-                    'placeholder' => "nom",
+                    'placeholder' => "Nom du groupe",
+                    'class' => "form-control form-control-underlined"
                 ]
             ])
             ->add('file', FileType::class,[
                 'required' => false,
-                ])       
-            ->add('creer', SubmitType::class)    
+                'attr' => [
+                    'class' => "form-control-file mb-4"
+                ]])       
+            ->add('creer', SubmitType::class,['attr' => [
+                'class' => "btn btn-outline-primary"
+            ]])    
         ;
     }
 
