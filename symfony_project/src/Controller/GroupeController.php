@@ -96,7 +96,7 @@ class GroupeController extends AbstractController
         $groupes = $user->getGroupes();
 
         $visible = true;
-        $messages = "";
+        $messages = [];
 
         if (empty($groupes)) {
             $visible = false;
