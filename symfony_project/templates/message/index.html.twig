@@ -24,7 +24,7 @@
             <div class="bg-white">
 
                 <div class="bg-gray px-4 py-2 bg-light d-flex justify-content-between">
-                    <a type="button" class="btn btn-danger" href="{{ path('seeGroups') }}"><i
+                    <a type="button" class="btn btn-danger" href="{{ path('groupe', {'id': app.user.id}) }}"><i
                             class="fas fa-arrow-left"></i></a>
                     <p class="h5 mb-0 py-1">{{ groupe.nom }}</p>
 
