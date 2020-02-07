@@ -16,14 +16,19 @@ class MessageController extends AbstractController
      */
     public function index($id, Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Message::class);
 
-        $messages = $repository->findAllMessageOnGroupe($id);
+        $userlog = $this->getUser();
+        if ($userlog == null) {
+            return $this->redirectToRoute('login');
+        }
 
         $manager = $this->getDoctrine()->getManager();
         $groupe = $manager->find(Groupe::class, $id);
 
-        $messageForm = $this->sendMessage($id, $request);
+        $messageForm = $this->sendMessage($groupe, $request);
+
+        $repository = $this->getDoctrine()->getRepository(Message::class);
+        $messages = $repository->findAllMessageOnGroupe($id);
 
         return $this->render('message/index.html.twig', [
             'messages' => $messages,
@@ -32,7 +37,7 @@ class MessageController extends AbstractController
         ]);
     }
 
-    public function sendMessage($id, Request $request)
+    public function sendMessage($groupe, Request $request)
     {
         $message = new Message();
 
@@ -44,16 +49,25 @@ class MessageController extends AbstractController
 
             $user = $this->getUser();
 
-            // $manager = $this->getDoctrine()->getManager();
-            // $manager->persist($user);
+            $message->setUser($user);
+            $message->setGroupe($groupe);
+            $message->setDate(new \DateTime('now'));
+            $message->setState(0);
 
-            // $user->fileUpload();
+            $manager = $this->getDoctrine()->getManager();
 
 
-            // $manager->flush($user);
+            if ($message->getContent() == null) {
+                $this->addFlash('errors', 'Veuillez écrire un message');
+            } else {
+                $manager->persist($message);
 
-            // $this->addFlash('success', 'La création de votre compte est une réussite ' . $user->getUsername());
-            // return $this->redirectToRoute('home');
+                $manager->flush($message);
+            }
+
+            $this->redirectToRoute('message', array(
+                'id' => $groupe->getId()
+            ));
         }
 
         return $form->createView();
