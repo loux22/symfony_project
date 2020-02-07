@@ -17,13 +17,12 @@ class MessageController extends AbstractController
     public function index($id, Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Message::class);
-
         $messages = $repository->findAllMessageOnGroupe($id);
 
         $manager = $this->getDoctrine()->getManager();
         $groupe = $manager->find(Groupe::class, $id);
 
-        $messageForm = $this->sendMessage($id, $request);
+        $messageForm = $this->sendMessage($id, $groupe, $request);
 
         return $this->render('message/index.html.twig', [
             'messages' => $messages,
@@ -32,7 +31,7 @@ class MessageController extends AbstractController
         ]);
     }
 
-    public function sendMessage($id, Request $request)
+    public function sendMessage($id, $groupe, Request $request)
     {
         $message = new Message();
 
@@ -44,16 +43,19 @@ class MessageController extends AbstractController
 
             $user = $this->getUser();
 
-            // $manager = $this->getDoctrine()->getManager();
-            // $manager->persist($user);
+            $message->setUser($user);
+            $message->setGroupe($groupe);
+            $message->setDate(new \DateTime('now'));
+            $message->setState(0);
 
-            // $user->fileUpload();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($message);
 
+            $manager->flush($message);
 
-            // $manager->flush($user);
-
-            // $this->addFlash('success', 'La création de votre compte est une réussite ' . $user->getUsername());
-            // return $this->redirectToRoute('home');
+            return $this->redirectToRoute('message', array(
+                'id' => $id
+            ));
         }
 
         return $form->createView();
