@@ -95,6 +95,13 @@ class GroupeController extends AbstractController
         $user = $manager->find(User::class, $id);
         $groupes = $user->getGroupes();
 
+        $visible = true;
+        $messages = "";
+
+        if (empty($groupes)) {
+            $visible = false;
+        }
+
         $repo = $this->getDoctrine()->getRepository(Message::class);
 
         $repository = $this->getDoctrine()->getRepository(Message::class);
@@ -122,7 +129,8 @@ class GroupeController extends AbstractController
 
         return $this->render('groupe/index.html.twig', [
             "groupes" => $groupes,
-            "messages" => $messages
+            "messages" => $messages,
+            "visible" => $visible
         ]);
     }
 }
