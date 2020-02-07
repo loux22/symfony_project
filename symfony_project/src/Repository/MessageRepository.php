@@ -29,6 +29,33 @@ class MessageRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findLastMessageOnGroupe($groupe)
+    {
+        
+        return $this->createQueryBuilder('m')
+            ->Where('m.groupe = :groupe')
+            ->setParameter('groupe', $groupe)
+            ->setMaxResults(1)
+            ->orderBy('m.date', 'DESC')
+            ->getQuery()
+            ->getSingleResult();
+            
+            
+    }
+
+    // $listAdverts = $repository->findByAuthor('groupe');
+
+    // for ($i=0; $i = null ; $i++) { 
+            //     $advert = $repository->findOneBy(array('m.groupe' => '$i'));
+            // }
+
+
+    // return $this->createQueryBuilder-> findBy(
+    //     array('m.groupe' => 'groupe'),
+    //     array('date' => 'desc' ),
+    //     3,
+    //     0);
+
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */

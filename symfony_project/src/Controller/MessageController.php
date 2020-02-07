@@ -16,13 +16,19 @@ class MessageController extends AbstractController
      */
     public function index($id, Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Message::class);
-        $messages = $repository->findAllMessageOnGroupe($id);
+
+        $userlog = $this->getUser();
+        if ($userlog == null) {
+            return $this->redirectToRoute('login');
+        }
 
         $manager = $this->getDoctrine()->getManager();
         $groupe = $manager->find(Groupe::class, $id);
 
-        $messageForm = $this->sendMessage($id, $groupe, $request);
+        $messageForm = $this->sendMessage($groupe, $request);
+
+        $repository = $this->getDoctrine()->getRepository(Message::class);
+        $messages = $repository->findAllMessageOnGroupe($id);
 
         return $this->render('message/index.html.twig', [
             'messages' => $messages,
@@ -31,7 +37,7 @@ class MessageController extends AbstractController
         ]);
     }
 
-    public function sendMessage($id, $groupe, Request $request)
+    public function sendMessage($groupe, Request $request)
     {
         $message = new Message();
 
@@ -49,12 +55,18 @@ class MessageController extends AbstractController
             $message->setState(0);
 
             $manager = $this->getDoctrine()->getManager();
-            $manager->persist($message);
 
-            $manager->flush($message);
 
-            return $this->redirectToRoute('message', array(
-                'id' => $id
+            if ($message->getContent() == null) {
+                $this->addFlash('errors', 'Veuillez écrire un message');
+            } else {
+                $manager->persist($message);
+
+                $manager->flush($message);
+            }
+
+            $this->redirectToRoute('message', array(
+                'id' => $groupe->getId()
             ));
         }
 
