@@ -20,9 +20,11 @@
 </div>
 
 {% for user in users %}
+{% if user.id != app.user.id %}
     <img height="50px" width="50px" src="{{asset('images/upload/' ~ user.photo)}}" alt="">
     <p>{{user.username}}</p>
     <input type="checkbox" name="userId[]" value="{{user.id}}">
+    {% endif %}
 {% endfor %}
 
 {{form_widget(createGroupeForm.creer)}}
@@ -52,7 +54,8 @@
             let url = "{{ path('search_user') }}";
             if(user != ""){
                 $.ajax({
-                    type: 'GET',
+                    type: 'POST',
+                    dataType: "json",
                     url: url,
                     data: 'user=' + encodeURIComponent(user),
                     success: function(data){
