@@ -15,14 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class GroupeController extends AbstractController
 {
     /**
-     * @Route("/groups", name="seeGroups")
-     */
-    public function seeGroups()
-    {
-        return $this->render('groupe/groups.html.twig', []);
-    }
-
-    /**
      * @Route("/createGroupe", name="createGroupe")
      */
     public function createGroupe(Request $request)
@@ -63,7 +55,9 @@ class GroupeController extends AbstractController
                 $manager->persist($groupe);
                 $manager->flush($groupe);
                 $this->addFlash('success', 'La création de votre groupe est une réussite ');
-                 // return $this ->redirectToRoute('home');
+                return $this->redirectToRoute('groupe', array(
+                    'id' => $userLog->getId()
+                ));
             } else {
                 $this->addFlash('errors', 'tu dois inviter au moins 1 personne dans ton groupe');
             }
@@ -80,47 +74,17 @@ class GroupeController extends AbstractController
      */
     public function search_user(Request $request)
     {
-        $request = $this -> query->get('search-user-js');      
-      if($request->isXmlHttpRequest())
-      {  
-        $username = $this -> query->get('search-user-js');      
-        $repository = $this->getDoctrine()->getRepository(User::class);  
-        $array = $repository->likeUser($username);         
-        $response = new Response(json_encode($array));
-            
-        $response -> headers -> set('Content-Type', 'application/json');
-        return $response;       
-      }
+        $request = $this->query->get('search-user-js');
+        if ($request->isXmlHttpRequest()) {
+            $username = $this->query->get('search-user-js');
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            $array = $repository->likeUser($username);
+            $response = new Response(json_encode($array));
 
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
     }
-//     public function lastMessageOnGroupe($id){
-
-//     $message = $this->getDoctrine()
-//     ->getRepository('AscamessagesBundle:message')
-//     ->findAll();
-     
-//     if (!$message) {
-//         throw $this->createNotFoundException(
-//                 'Aucun message trouvé pour cet id : '.$id
-//         );
-//     }
-//     return $this->render("AscamessagesBundle:views:groupe.html.twig", array(
-//             'groupes' => $groupes,
-//     ));
-// }
-    // /**
-    //  * @Route("/groupe/(id)", name="groupe")
-    //  */
-    // public function showgroup($id){
-    //     $groupe = $this -> getDoctrine()
-    //         -> getRepository('GroupeController.php')
-    //         -> find($id);
-
-    //     if(!$groupe){
-    //         throw $this -> createNotFoundException('Aucun groupe ne correspond à votre recherche ');
-    //     }
-    // }
-
 
     /**
      * @Route("/groupe/{id}", name="groupe")
@@ -130,29 +94,43 @@ class GroupeController extends AbstractController
         $manager = $this->getDoctrine()->getManager();
         $user = $manager->find(User::class, $id);
         $groupes = $user->getGroupes();
-        
+
+        $visible = true;
+        $messages = "";
+
+        if (empty($groupes)) {
+            $visible = false;
+        }
+
         $repo = $this->getDoctrine()->getRepository(Message::class);
 
-        // foreach ($user as $users) {
-        //     $lastMessage = $message
-        //     ->getRepository('UserBundle:message')
-        //     ->myFindDerniersByuser($user);
-             
-        //     foreach ($message as $a){
-        //         array_push($message, $m);
-        //     }
-        // }    
-            foreach ($groupes as $groupe) {
-                $messages[] = $repo->findLastMessageOnGroupe($groupe -> getId());
+        $repository = $this->getDoctrine()->getRepository(Message::class);
+        $allMessages = $repository->findAll();
+
+        foreach ($groupes as $key => $groupe) {
+
+            $statu = true;
+
+            foreach ($allMessages as $allMessage) {
+
+                if ($groupe != $allMessage->getGroupe() && $statu) {
+
+                    $messages[$key][0] = "";
+                    $messages[$key][1] = false;
+                } else {
+
+                    $messages[$key][0] = $repo->findLastMessageOnGroupe($groupe->getId());
+                    $messages[$key][1] = true;
+                    $statu = false;
+                }
             }
+        }
 
 
-        return $this-> render('groupe/index.html.twig', [
+        return $this->render('groupe/index.html.twig', [
             "groupes" => $groupes,
-            "messages" => $messages
+            "messages" => $messages,
+            "visible" => $visible
         ]);
-
-        // return new Response(count($groupe) . "Groupe dans le repertoire");
-}
-
+    }
 }
