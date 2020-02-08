@@ -91,6 +91,10 @@ class GroupeController extends AbstractController
      */
     public function showAllGroupOfUser($id)
     {
+        $userLog = $this->getUser();
+        if ($userLog == null) {
+            return $this->redirectToRoute('login');
+        }
         $manager = $this->getDoctrine()->getManager();
         $user = $manager->find(User::class, $id);
         $groupes = $user->getGroupes();
