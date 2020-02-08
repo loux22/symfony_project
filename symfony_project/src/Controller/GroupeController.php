@@ -69,22 +69,23 @@ class GroupeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/dzefzgrthy", name="search_user")
-     */
-    public function search_user(Request $request)
-    {
-        $request = $this->query->get('search-user-js');
-        if ($request->isXmlHttpRequest()) {
-            $username = $this->query->get('search-user-js');
-            $repository = $this->getDoctrine()->getRepository(User::class);
-            $array = $repository->likeUser($username);
-            $response = new Response(json_encode($array));
+    ///////////////////////////////////ajax pour la barre de recherche non fonctionnel///////////////////////////////////////
+    // /**
+    //  * @Route("/dzefzgrthy", name="search_user")
+    //  */
+    // public function search_user(Request $request)
+    // {
+    //     $request = $this->query->get('search-user-js');
+    //     if ($request->isXmlHttpRequest()) {
+    //         $username = $this->query->get('search-user-js');
+    //         $repository = $this->getDoctrine()->getRepository(User::class);
+    //         $array = $repository->likeUser($username);
+    //         $response = new Response(json_encode($array));
 
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        }
-    }
+    //         $response->headers->set('Content-Type', 'application/json');
+    //         return $response;
+    //     }
+    // }
 
     /**
      * @Route("/groupe/{id}", name="groupe")

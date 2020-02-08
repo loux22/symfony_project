@@ -56,8 +56,8 @@
             {{form_errors(createGroupeForm.file)}}
             {{form_widget(createGroupeForm.file)}}
 
-
-            <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+            {# barre de recherche des utilisateurs non fonctionnel #}
+            {# <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                 <div class="input-group">
                     <input type="text" id="search-user-js" name="" class="form-control border-0 bg-light"
                         placeholder="Rechercher des utilisateurs">
@@ -65,7 +65,7 @@
                         <div id="result-search-js"></div>
                     </div>
                 </div>
-            </div>
+            </div> #}
 
             <div class="container">
                 {% for user in users %}
@@ -103,7 +103,8 @@
 
 
 {% block javascripts %}
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+{# barre de recherche des utilisateurs non fonctionnel #}
+{# <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -135,5 +136,5 @@
             }
         })
     })
-</script>
+</script> #}
 {% endblock %}
