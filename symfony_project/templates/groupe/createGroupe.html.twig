@@ -67,29 +67,22 @@
                 </div>
             </div>
 
-
-{% for user in users %}
-{% if user.id != app.user.id %}
-    <img height="50px" width="50px" src="{{asset('images/upload/' ~ user.photo)}}" alt="">
-    <p>{{user.username}}</p>
-    <input type="checkbox" name="userId[]" value="{{user.id}}">
-    {% endif %}
-{% endfor %}
-
             <div class="container">
                 {% for user in users %}
+                {% if user.id != app.user.id %}
                 <label for="-{{user.id}}" class="w-100" style="cursor:pointer;">
-                <div class="d-flex mb-3 border-bottom align-items-center w-100">
-                    <div class="image">
-                        <img height="50px" width="50px" src="{{asset('images/upload/' ~ user.photo)}}" alt="">
+                    <div class="d-flex mb-3 border-bottom align-items-center w-100">
+                        <div class="image">
+                            <img height="50px" width="50px" src="{{asset('images/upload/' ~ user.photo)}}" alt="">
+                        </div>
+                        <div class="informations ml-2 d-flex justify-content-between w-100">
+                            <h5>{{user.username}}</h5>
+                            <input type="checkbox" id="-{{user.id}}" name="userId[]" value="{{user.id}}">
+                        </div>
+
                     </div>
-                    <div class="informations ml-2 d-flex justify-content-between w-100">
-                        <h5>{{user.username}}</h5>
-                        <input type="checkbox" id="-{{user.id}}" name="userId[]" value="{{user.id}}">
-                    </div>
-                    
-                </div>
-            </label>
+                </label>
+                {% endif %}
                 {% endfor %}
             </div>
 
