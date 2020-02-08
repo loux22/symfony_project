@@ -17,7 +17,8 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 10; $i++) {
             $user = new User;
             $user->setUsername('user' . $i);
-            $user->setPassword('$argon2i$v=19$m=65536,t=4,p=1$Q2VDNDlVbjliOVl1dHJJOQ$/n2LjKxwSeZIVd+8BvS/WYVYwS5Ubq7VLamQFIZ9Wb0');
+            //password : Ynov2020
+            $user->setPassword('$argon2i$v=19$m=65536,t=4,p=1$Ly9IZnhjTVpnSWMwMElGMQ$OGVg0pkuobsGj2RrWgmHASlU5214yp3f2H5mMuflnGE');
             $user->setPhoto('default.jpg');
             $user->setEmail('user' . $i . '@gmail.com');
             $manager->persist($user);
