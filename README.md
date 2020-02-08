@@ -9,12 +9,13 @@ Louis ARDILLY
 Léo PEYRE 
 David DA SILVA TEIXEIRA 
 
-Dans notre cas je vous demande de prendre en note que la connexion s'effectue avec email/password et non avec username/password
+Dans notre cas je vous demande de prendre en note que la connexion s'effectue avec email/password et non avec username/password.
+L'ensemble de  nos Fixtures sont mises en place et opérationelles pour créer les users en base de données (email : userx@gmail.com, password : Ynov2020) 
 
 Remarques diverses :
-Nous avons rencontré un petit problème que nous avons réglé pour l'affichage du dernier message dans la liste des groupes en effet lorsqu'un groupe n'avait pas de message une erreur était affiché mais nous avons corrigé le problème 
+Nous avons rencontré un petit problème que nous avons réglé pour l'affichage du dernier message dans la liste des groupes en effet lorsqu'un groupe n'avait pas de message une erreur était affiché mais nous avons corrigé le problème.
 Sinon dans l'ensemble tout c'est très bien passé. 
-Ce n'était pas demandé mais nous avons rencontré un problème avec ajax et la barre de recherche d'un utilisateur mais ceci n'étant que du bonus nosu avons préféré nous concentrer sur l'essentiel du sujet 
+Ce n'était pas demandé mais nous avons rencontré un problème avec ajax et la barre de recherche d'un utilisateur mais ceci n'étant que du bonus nous avons préféré nous concentrer sur l'essentiel du sujet;
 
 
 Bien entendu si vous rencontrez un problème n'hésitez à nous en faire part à l'addresse mail suivante : jeremy.richard@ynov.com 
