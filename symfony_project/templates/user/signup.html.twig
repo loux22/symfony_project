@@ -33,24 +33,41 @@
 				Inscription
 			</span>
 			{{form_start(signupForm)}}
-			
+
 
 			<div class="wrap-input100 validate-input m-b-23" data-validate="Le nom d'utilisateur est requis !">
-				
+
 				<span class="label-input100">Pseudo</span>
-				<div class="alert alert-danger">
-					{{form_errors(signupForm.username)}}
-				  </div>
+
+				{% if form_errors(signupForm.username) %}
+				<span class="invalid-feedback d-block">
+					<span class="d-block">
+						<span class="form-error-icon badge badge-danger text-uppercase">
+							<span class="form-error-message">
+								{{form_errors(signupForm.username)}}
+							</span>
+						</span>
+					</span>
+				</span>
+				{% endif %}
 				{{form_widget(signupForm.username)}}
 				<span class="focus-input100" data-symbol="&#xf206;"></span>
 			</div>
 
 			<div class="wrap-input100 validate-input" data-validate="Le mot de passe est requis !">
-				
+
 				<span class="label-input100">Mot de passe</span>
-				<div class="alert alert-danger">
-					{{form_errors(signupForm.password.first)}} 
-				</div>
+				{% if form_errors(signupForm.password.first) %}
+				<span class="invalid-feedback d-block">
+					<span class="d-block">
+						<span class="form-error-icon badge badge-danger text-uppercase">
+							<span class="form-error-message">
+								{{form_errors(signupForm.password.first)}}
+							</span>
+						</span>
+					</span>
+				</span>
+				{% endif %}
 				{{form_widget(signupForm.password.first)}}
 				<span class="focus-input100" data-symbol="&#xf190;"></span>
 			</div>
@@ -61,11 +78,19 @@
 			</div>
 
 			<div class="wrap-input100 validate-input m-b-23" data-validate="L'email est requis !">
-				
+
 				<span class="label-input100">Email</span>
-				<div class="alert alert-danger">
-					{{form_errors(signupForm.email)}}
-				</div>
+				{% if form_errors(signupForm.email) %}
+				<span class="invalid-feedback d-block">
+					<span class="d-block">
+						<span class="form-error-icon badge badge-danger text-uppercase">
+							<span class="form-error-message">
+								{{form_errors(signupForm.email)}}
+							</span>
+						</span>
+					</span>
+				</span>
+				{% endif %}
 				{{form_widget(signupForm.email)}}
 				<span class="focus-input100" data-symbol="&#x40;"></span>
 			</div>
